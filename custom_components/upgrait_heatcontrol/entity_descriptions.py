@@ -177,14 +177,12 @@ BOOLEAN_SENSOR_DESCRIPTIONS: tuple[HeatControlBinarySensorDescription, ...] = (
         translation_key="has_pv",
         name="PV Available",
         topic="UCH/energy/hasPv",
-        device_class=binary.POWER,
     ),
     HeatControlBinarySensorDescription(
         key="has_battery",
         translation_key="has_battery",
         name="Battery Available",
         topic="UCH/energy/hasBattery",
-        device_class=binary.BATTERY_CHARGING,
     ),
     HeatControlBinarySensorDescription(
         key="heater_active",

@@ -1,6 +1,6 @@
 """Basic smoke tests for the UPGRAIT HeatControl integration overlay."""
 
-from homeassistant.components.upgrait_heatcontrol.const import DEFAULT_PORT, DOMAIN
+from custom_components.upgrait_heatcontrol.const import DEFAULT_PORT, DOMAIN
 
 
 def test_basic_constants() -> None:

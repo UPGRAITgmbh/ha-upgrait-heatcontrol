@@ -11,7 +11,7 @@ from homeassistant.data_entry_flow import FlowResultType
 from homeassistant.helpers.service_info.zeroconf import ZeroconfServiceInfo
 from upgrait_heatcontrol_api.models import DeviceInfo, PairingConfirmResult, PairingStartResult
 
-from homeassistant.components.upgrait_heatcontrol.const import (
+from custom_components.upgrait_heatcontrol.const import (
     CONF_DEVICE_NAME,
     CONF_HA_INSTANCE_ID,
     CONF_HA_PRIVATE_KEY,
@@ -24,8 +24,8 @@ from homeassistant.components.upgrait_heatcontrol.const import (
 
 
 MOCK_ZEROCONF = ZeroconfServiceInfo(
-    ip_address=ip_address("192.168.2.116"),
-    ip_addresses=[ip_address("192.168.2.116")],
+    ip_address=ip_address("192.0.2.1"),
+    ip_addresses=[ip_address("192.0.2.1")],
     port=8001,
     hostname="uhc-1000000068971dd6.local.",
     type="_upgrait-hc._tcp.local.",
@@ -59,11 +59,11 @@ async def test_zeroconf_pairing_flow(hass) -> None:
 
     with (
         patch(
-            "homeassistant.components.upgrait_heatcontrol.async_setup_entry",
+            "custom_components.upgrait_heatcontrol.async_setup_entry",
             return_value=True,
         ),
         patch(
-            "homeassistant.components.upgrait_heatcontrol.config_flow.async_validate_host",
+            "custom_components.upgrait_heatcontrol.config_flow.async_validate_host",
             return_value=(
                 DeviceInfo(
                     serial="1000000068971dd6d83add722633d83add722634",
@@ -77,11 +77,11 @@ async def test_zeroconf_pairing_flow(hass) -> None:
             ),
         ),
         patch(
-            "homeassistant.components.upgrait_heatcontrol.config_flow.async_get_instance_id",
+            "custom_components.upgrait_heatcontrol.config_flow.async_get_instance_id",
             return_value="ha-instance-id",
         ),
         patch(
-            "homeassistant.components.upgrait_heatcontrol.config_flow.generate_keypair",
+            "custom_components.upgrait_heatcontrol.config_flow.generate_keypair",
             return_value=("ha-private-key", "ha-public-key"),
         ),
     ):
@@ -93,7 +93,7 @@ async def test_zeroconf_pairing_flow(hass) -> None:
 
         assert result["type"] is FlowResultType.FORM
         assert result["step_id"] == "zeroconf_confirm"
-        assert result["description_placeholders"]["host"] == "192.168.2.116"
+        assert result["description_placeholders"]["host"] == "192.0.2.1"
         assert result["description_placeholders"]["port"] == "8001"
 
         result = await hass.config_entries.flow.async_configure(
@@ -103,7 +103,7 @@ async def test_zeroconf_pairing_flow(hass) -> None:
 
         assert result["type"] is FlowResultType.FORM
         assert result["step_id"] == "pair_confirm"
-        assert result["description_placeholders"]["host"] == "192.168.2.116"
+        assert result["description_placeholders"]["host"] == "192.0.2.1"
         assert result["description_placeholders"]["port"] == "8001"
 
         result = await hass.config_entries.flow.async_configure(
@@ -113,7 +113,7 @@ async def test_zeroconf_pairing_flow(hass) -> None:
 
     assert result["type"] is FlowResultType.CREATE_ENTRY
     assert result["title"] == "UPGRAIT HeatControl (1000000068971dd6d83add722633d83add722634)"
-    assert result["data"][CONF_HOST] == "192.168.2.116"
+    assert result["data"][CONF_HOST] == "192.0.2.1"
     assert result["data"][CONF_PORT] == DEFAULT_PORT
     assert result["data"][CONF_SERIAL] == "1000000068971dd6d83add722633d83add722634"
     assert result["data"][CONF_DEVICE_NAME] == "UPGRAIT HeatControl"

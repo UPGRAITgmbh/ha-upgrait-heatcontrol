@@ -13,7 +13,7 @@ from upgrait_heatcontrol_api.discovery import (
 
 DOMAIN = "upgrait_heatcontrol"
 LOGGER = logging.getLogger(__package__)
-INTEGRATION_VERSION = "0.1.0"
+INTEGRATION_VERSION = "0.1.1"
 
 CONF_HA_INSTANCE_ID = "ha_instance_id"
 CONF_HA_PRIVATE_KEY = "ha_private_key"

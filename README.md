@@ -29,4 +29,4 @@ The long-term goal is inclusion in Home Assistant Core, which will happen throug
 ## Support
 
 - Issues: `https://github.com/UPGRAITgmbh/ha-upgrait-heatcontrol/issues`
-- Product website: `https://www.upgra.it/`
+- Product website: `https://upgrait.com/heatcontrol/`
