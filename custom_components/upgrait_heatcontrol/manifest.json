@@ -1,15 +1,15 @@
 {
   "domain": "upgrait_heatcontrol",
   "name": "UPGRAIT HeatControl",
-  "version": "0.1.1",
   "codeowners": ["@UPGRAITgmbh"],
   "config_flow": true,
   "documentation": "https://github.com/UPGRAITgmbh/ha-upgrait-heatcontrol",
-  "issue_tracker": "https://github.com/UPGRAITgmbh/ha-upgrait-heatcontrol/issues",
   "integration_type": "device",
   "iot_class": "local_push",
+  "issue_tracker": "https://github.com/UPGRAITgmbh/ha-upgrait-heatcontrol/issues",
   "loggers": ["upgrait_heatcontrol_api"],
   "requirements": ["upgrait-heatcontrol-api==0.1.1"],
+  "version": "0.1.1",
   "zeroconf": [
     {
       "type": "_upgrait-hc._tcp.local.",
