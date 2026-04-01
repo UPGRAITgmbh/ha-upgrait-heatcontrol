@@ -1,0 +1,113 @@
+{
+  "title": "UPGRAIT HeatControl",
+  "config": {
+    "abort": {
+      "already_configured": "[%key:common::config_flow::abort::already_configured_device%]"
+    },
+    "error": {
+      "cannot_connect": "[%key:common::config_flow::error::cannot_connect%]",
+      "invalid_pin": "The PIN is invalid.",
+      "pairing_not_active": "The pairing request is no longer active. Start the setup again.",
+      "unknown": "[%key:common::config_flow::error::unknown%]"
+    },
+    "step": {
+      "zeroconf_confirm": {
+        "title": "Add discovered HeatControl",
+        "description": "UPGRAIT HeatControl was discovered at **{host}:{port}**. Press submit to start pairing and show a 6-digit PIN on the UHC."
+      },
+      "pair_confirm": {
+        "title": "Confirm pairing",
+        "description": "A pairing request was started for **{display_name}** on **{host}:{port}**. Enter the 6-digit PIN shown on the UHC display or in the UHC log. Existing binding: **{existing_binding}**.",
+        "data": {
+          "pin": "Pairing PIN"
+        }
+      },
+      "user": {
+        "title": "Connect to HeatControl",
+        "data": {
+          "host": "[%key:common::config_flow::data::host%]",
+          "port": "[%key:common::config_flow::data::port%]"
+        },
+        "data_description": {
+          "host": "The hostname or IP address of your UPGRAIT HeatControl."
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "grid_watts": {
+        "name": "Grid power"
+      },
+      "grid_voltage": {
+        "name": "Grid voltage"
+      },
+      "grid_current": {
+        "name": "Grid current"
+      },
+      "powermeter_frequency": {
+        "name": "Power meter frequency"
+      },
+      "powermeter_total_current": {
+        "name": "Power meter total current"
+      },
+      "powermeter_total_import": {
+        "name": "Power meter total import"
+      },
+      "energy_total_import": {
+        "name": "Grid total import"
+      },
+      "energy_total_export": {
+        "name": "Grid total export"
+      },
+      "reservoir_top_temperature": {
+        "name": "Reservoir top temperature"
+      },
+      "reservoir_bottom_temperature": {
+        "name": "Reservoir bottom temperature"
+      },
+      "circuit_1_forerun_temperature": {
+        "name": "Circuit 1 forerun temperature"
+      },
+      "circuit_1_backrun_temperature": {
+        "name": "Circuit 1 backrun temperature"
+      }
+    },
+    "binary_sensor": {
+      "has_pv": {
+        "name": "PV available"
+      },
+      "has_battery": {
+        "name": "Battery available"
+      },
+      "heater_active": {
+        "name": "Heater active"
+      }
+    },
+    "switch": {
+      "circuit_1_enabled": {
+        "name": "Circuit 1"
+      },
+      "circuit_2_enabled": {
+        "name": "Circuit 2"
+      },
+      "holiday_enabled": {
+        "name": "Holiday mode"
+      },
+      "maintenance_enabled": {
+        "name": "Maintenance"
+      },
+      "heater_1_flickerfree": {
+        "name": "Heater 1 flickerfree mode"
+      },
+      "circulation_pump": {
+        "name": "Circulation pump"
+      }
+    },
+    "number": {
+      "reservoir_1_minimal_temperature": {
+        "name": "Reservoir 1 minimal temperature"
+      }
+    }
+  }
+}
