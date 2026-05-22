@@ -9,7 +9,7 @@
   "issue_tracker": "https://github.com/UPGRAITgmbh/ha-upgrait-heatcontrol/issues",
   "loggers": ["upgrait_heatcontrol_api"],
   "requirements": ["upgrait-heatcontrol-api==0.1.1"],
-  "version": "0.1.1",
+  "version": "0.1.2",
   "zeroconf": [
     {
       "type": "_upgrait-hc._tcp.local.",
