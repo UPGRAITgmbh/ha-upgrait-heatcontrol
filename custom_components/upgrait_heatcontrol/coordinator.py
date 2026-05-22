@@ -13,6 +13,7 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from upgrait_heatcontrol_api import (
     HeatControlApiClient,
     HeatControlApiConnectionError,
+    HeatControlApiError,
     HeatControlApiProtocolError,
     HeatControlConnection,
 )
@@ -24,6 +25,7 @@ from .const import (
     DOMAIN,
     LOGGER,
 )
+from .device_metadata import async_refresh_device_metadata
 
 
 class UpgraitHeatControlCoordinator(DataUpdateCoordinator[dict[str, Any]]):
@@ -65,6 +67,19 @@ class UpgraitHeatControlCoordinator(DataUpdateCoordinator[dict[str, Any]]):
                 server_public_key=self.entry.data[CONF_SERVER_PUBLIC_KEY],
             )
             self.connection.subscribe(self._handle_event)
+            try:
+                self.entry = await async_refresh_device_metadata(
+                    self.hass, self.entry, self.client
+                )
+            except (
+                HeatControlApiConnectionError,
+                HeatControlApiError,
+                HeatControlApiProtocolError,
+            ) as exc:
+                LOGGER.debug(
+                    "HeatControl device metadata refresh failed after reconnect: %s",
+                    exc,
+                )
             self.async_set_updated_data(dict(self.connection.snapshot))
 
     async def _async_reset_connection(self) -> None:

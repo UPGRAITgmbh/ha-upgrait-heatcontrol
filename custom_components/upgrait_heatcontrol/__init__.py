@@ -17,6 +17,7 @@ from upgrait_heatcontrol_api import (
 
 from .const import DOMAIN
 from .coordinator import UpgraitHeatControlCoordinator
+from .device_metadata import async_refresh_device_metadata
 
 DISPLAY_NAME = "UPGRAIT HeatControl"
 OLD_ENTITY_ID_PREFIX = "upgrait_gmbh_heatcontrol_"
@@ -38,6 +39,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         port=entry.data[CONF_PORT],
         session=async_get_clientsession(hass),
     )
+    entry = await async_refresh_device_metadata(hass, entry, client)
     coordinator = UpgraitHeatControlCoordinator(hass, entry, client)
     try:
         await coordinator.async_config_entry_first_refresh()

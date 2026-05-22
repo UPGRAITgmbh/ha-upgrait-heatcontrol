@@ -5,7 +5,7 @@ from __future__ import annotations
 import asyncio
 from dataclasses import dataclass, field
 from typing import Any
-from unittest.mock import AsyncMock
+from unittest.mock import AsyncMock, patch
 
 import pytest
 from upgrait_heatcontrol_api import HeatControlApiConnectionError
@@ -75,12 +75,21 @@ async def test_coordinator_reconnects_when_existing_connection_is_stale() -> Non
     )
     coordinator.connection = stale_connection
 
-    result = await coordinator._async_update_data()
+    with patch(
+        "custom_components.upgrait_heatcontrol.coordinator.async_refresh_device_metadata",
+        AsyncMock(return_value=coordinator.entry),
+    ) as refresh_metadata:
+        result = await coordinator._async_update_data()
 
     assert result == {"new": 2}
     assert coordinator.connection is fresh_connection
     stale_connection.close.assert_awaited_once()
     client.async_connect_and_bind.assert_awaited_once()
+    refresh_metadata.assert_awaited_once_with(
+        coordinator.hass,
+        coordinator.entry,
+        coordinator.client,
+    )
 
 
 @pytest.mark.asyncio
@@ -98,7 +107,11 @@ async def test_cfg_set_retries_once_after_connection_failure() -> None:
         FakeHass(asyncio.get_running_loop()), _make_entry(), client
     )
 
-    await coordinator.async_cfg_set("logic.test", True)
+    with patch(
+        "custom_components.upgrait_heatcontrol.coordinator.async_refresh_device_metadata",
+        AsyncMock(side_effect=[coordinator.entry, coordinator.entry]),
+    ) as refresh_metadata:
+        await coordinator.async_cfg_set("logic.test", True)
 
     first_connection.request.assert_awaited_once_with(
         "cfg_set", {"key": "logic.test", "value": True}
@@ -108,3 +121,4 @@ async def test_cfg_set_retries_once_after_connection_failure() -> None:
         "cfg_set", {"key": "logic.test", "value": True}
     )
     assert coordinator.connection is second_connection
+    assert refresh_metadata.await_count == 2
