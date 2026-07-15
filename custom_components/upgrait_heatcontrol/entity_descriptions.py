@@ -91,6 +91,15 @@ SENSOR_DESCRIPTIONS: tuple[HeatControlSensorDescription, ...] = (
         state_class=SensorStateClass.MEASUREMENT,
     ),
     HeatControlSensorDescription(
+        key="powermeter_total_power",
+        translation_key="powermeter_total_power",
+        name="Power Meter Total Power",
+        topic="UCH/powermeter/total_power",
+        native_unit_of_measurement=UnitOfPower.WATT,
+        device_class=SensorDeviceClass.POWER,
+        state_class=SensorStateClass.MEASUREMENT,
+    ),
+    HeatControlSensorDescription(
         key="powermeter_total_current",
         translation_key="powermeter_total_current",
         name="Power Meter Total Current",

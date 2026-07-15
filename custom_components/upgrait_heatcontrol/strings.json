@@ -48,6 +48,9 @@
       "powermeter_frequency": {
         "name": "Power meter frequency"
       },
+      "powermeter_total_power": {
+        "name": "Power meter total power"
+      },
       "powermeter_total_current": {
         "name": "Power meter total current"
       },
