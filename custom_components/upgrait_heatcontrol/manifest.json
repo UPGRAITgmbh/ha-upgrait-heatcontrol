@@ -8,7 +8,7 @@
   "iot_class": "local_push",
   "issue_tracker": "https://github.com/UPGRAITgmbh/ha-upgrait-heatcontrol/issues",
   "loggers": ["upgrait_heatcontrol_api"],
-  "requirements": ["upgrait-heatcontrol-api==0.2.0"],
+  "requirements": ["upgrait-heatcontrol-api==0.2.1"],
   "version": "0.2.0",
   "zeroconf": [
     {
