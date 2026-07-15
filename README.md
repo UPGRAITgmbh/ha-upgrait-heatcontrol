@@ -30,3 +30,7 @@ The long-term goal is inclusion in Home Assistant Core, which will happen throug
 
 - Issues: `https://github.com/UPGRAITgmbh/ha-upgrait-heatcontrol/issues`
 - Product website: `https://upgrait.com/heatcontrol/`
+
+## License
+
+Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE).
